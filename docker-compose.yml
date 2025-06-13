@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:13-alpine
+    container_name: ${DB_CONTAINER_NAME}
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./dbSchema.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./ddl.sql:/docker-entrypoint-initdb.d/02-dml.sql
+volumes:
+  db_data:

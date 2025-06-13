@@ -1,0 +1,252 @@
+CREATE TABLE Users (
+	id SERIAL NOT NULL UNIQUE,
+	email VARCHAR(255) NOT NULL,
+	fullName VARCHAR(255) NOT NULL,
+	password VARCHAR(100),
+	idAuthProvider INTEGER NOT NULL,
+	isActive BOOLEAN NOT NULL,
+	-- Almacena el ID único que el proveedor de autenticación (Google, Facebook, etc.) asigna a cada usuario
+	providerUserId VARCHAR(255) UNIQUE,
+	-- Indica si la dirección de correo electrónico del usuario ha sido verificada
+	emailVerified BOOLEAN NOT NULL DEFAULT FALSE,
+	profileImageUrl VARCHAR(500),
+	PRIMARY KEY(id)
+);COMMENT ON COLUMN Users.providerUserId IS 'Almacena el ID único que el proveedor de autenticación (Google, Facebook, etc.) asigna a cada usuario';
+COMMENT ON COLUMN Users.emailVerified IS 'Indica si la dirección de correo electrónico del usuario ha sido verificada';
+
+
+CREATE TABLE Cards (
+	id SERIAL NOT NULL UNIQUE,
+	idBusiness INTEGER NOT NULL,
+	expiration INTERVAL NOT NULL,
+	maxStamp INTEGER NOT NULL,
+	description VARCHAR(2000) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Business (
+	id SERIAL NOT NULL UNIQUE,
+	idPlan INTEGER NOT NULL,
+	idLocation INTEGER NOT NULL,
+	email VARCHAR(80) NOT NULL,
+	password VARCHAR(100) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	logoImage VARCHAR(500),
+	Address VARCHAR(250),
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Locations (
+	id SERIAL NOT NULL UNIQUE,
+	idFather INTEGER NOT NULL,
+	idLocationType INTEGER NOT NULL,
+  name VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Categories (
+	id SERIAL NOT NULL UNIQUE,
+	name VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Links (
+	id SERIAL NOT NULL UNIQUE,
+	idBusiness INTEGER NOT NULL,
+	value VARCHAR(500) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Numbers (
+	id SERIAL NOT NULL UNIQUE,
+	idBusiness INTEGER NOT NULL,
+	value VARCHAR(20) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Ratings (
+	id SERIAL NOT NULL UNIQUE,
+	idUser INTEGER NOT NULL,
+	idBusiness INTEGER NOT NULL,
+	valoration SMALLINT NOT NULL DEFAULT 5 CHECK(valoration >= 1 AND valoration <= 5),
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Plans (
+	id SERIAL NOT NULL UNIQUE,
+	name VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE CardStates (
+	id SERIAL NOT NULL UNIQUE,
+	name VARCHAR(100) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Preferences (
+	idUser SERIAL NOT NULL,
+	idCategory INTEGER NOT NULL,
+	PRIMARY KEY(idUser, idCategory)
+);
+
+CREATE TABLE Notifications (
+	id SERIAL NOT NULL UNIQUE,
+	content VARCHAR(500) NOT NULL,
+	link VARCHAR(500),
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE CardsUsers (
+	id SERIAL NOT NULL UNIQUE,
+	idUser INTEGER NOT NULL,
+	idCard INTEGER NOT NULL,
+	idCardState INTEGER NOT NULL,
+	expirationDate TIMESTAMP NOT NULL,
+	currentStamps INTEGER NOT NULL,
+	UniqueCode CHAR(8),
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE UsersNotifications (
+	id SERIAL NOT NULL UNIQUE,
+	idNotification INTEGER NOT NULL,
+	idUser INTEGER NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Collaborators (
+	idUser SERIAL NOT NULL,
+	idBusiness INTEGER NOT NULL,
+	PRIMARY KEY(idUser, idBusiness)
+);
+
+CREATE TABLE LocationTypes (
+	id SERIAL NOT NULL UNIQUE,
+	name VARCHAR(150) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE BusinessCategories (
+	idBusiness INTEGER NOT NULL,
+	idCategory INTEGER NOT NULL,
+	PRIMARY KEY(idBusiness, idCategory)
+);
+
+CREATE TABLE CollaboratorsActivities (
+	id SERIAL NOT NULL UNIQUE,
+	idUser INTEGER NOT NULL,
+	idBusiness INTEGER NOT NULL,
+	idActionType INTEGER NOT NULL,
+	oldValue VARCHAR(255),
+	newValue VARCHAR(255),
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE ActionTypes (
+	id SERIAL NOT NULL UNIQUE,
+	name VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE AuthProviders (
+	id SERIAL NOT NULL UNIQUE,
+	name VARCHAR(50) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+ALTER TABLE UsersNotifications
+ADD FOREIGN KEY(idNotification) REFERENCES Notifications(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE UsersNotifications
+ADD FOREIGN KEY(idUser) REFERENCES Users(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE CardsUsers
+ADD FOREIGN KEY(idCardState) REFERENCES CardStates(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE CardsUsers
+ADD FOREIGN KEY(idUser) REFERENCES Users(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE CardsUsers
+ADD FOREIGN KEY(idCard) REFERENCES Cards(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Preferences
+ADD FOREIGN KEY(idUser) REFERENCES Users(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Preferences
+ADD FOREIGN KEY(idCategory) REFERENCES Categories(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE BusinessCategories
+ADD FOREIGN KEY(idCategory) REFERENCES Categories(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE BusinessCategories
+ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Ratings
+ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Ratings
+ADD FOREIGN KEY(idUser) REFERENCES Users(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Collaborators
+ADD FOREIGN KEY(idUser) REFERENCES Users(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Collaborators
+ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Numbers
+ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Business
+ADD FOREIGN KEY(idPlan) REFERENCES Plans(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Locations
+ADD FOREIGN KEY(idLocationType) REFERENCES LocationTypes(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Locations
+ADD FOREIGN KEY(idFather) REFERENCES Locations(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Business
+ADD FOREIGN KEY(idLocation) REFERENCES Locations(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Links
+ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Cards
+ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE CollaboratorsActivities
+ADD FOREIGN KEY(idUser) REFERENCES Users(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE CollaboratorsActivities
+ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE CollaboratorsActivities
+ADD FOREIGN KEY(idActionType) REFERENCES ActionTypes(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE Users
+ADD FOREIGN KEY(idAuthProvider) REFERENCES AuthProviders(id)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
