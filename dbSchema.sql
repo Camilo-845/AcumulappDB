@@ -18,7 +18,7 @@ COMMENT ON COLUMN Users.emailVerified IS 'Indica si la dirección de correo elec
 CREATE TABLE Cards (
 	id SERIAL NOT NULL UNIQUE,
 	idBusiness INTEGER NOT NULL,
-	expiration INTERVAL NOT NULL,
+	expiration BIGINT NOT NULL,
 	maxStamp INTEGER NOT NULL,
 	description VARCHAR(2000) NOT NULL,
 	PRIMARY KEY(id)
@@ -104,7 +104,7 @@ CREATE TABLE CardsUsers (
 	idCardState INTEGER NOT NULL,
 	expirationDate TIMESTAMP NOT NULL,
 	currentStamps INTEGER NOT NULL,
-	UniqueCode CHAR(8),
+	UniqueCode VARCHAR(255),
 	PRIMARY KEY(id)
 );
 
