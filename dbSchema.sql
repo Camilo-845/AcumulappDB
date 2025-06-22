@@ -18,7 +18,7 @@ CREATE TABLE "Business" (
 	"email" VARCHAR(255),
 	"idLocation" INTEGER,
 	"logoImage" VARCHAR(500),
-	"Address" VARCHAR(250),
+	"address" VARCHAR(250),
 	"idPlan" INTEGER NOT NULL DEFAULT 1,
 	"fullInformation" BOOLEAN NOT NULL DEFAULT FALSE,
 	PRIMARY KEY("id")
