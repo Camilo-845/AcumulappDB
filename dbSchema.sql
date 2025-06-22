@@ -1,4 +1,4 @@
-CREATE TABLE "Client" (
+CREATE TABLE "Clients" (
 	"idAccount" INTEGER NOT NULL UNIQUE,
 	PRIMARY KEY("idAccount")
 );
@@ -140,11 +140,11 @@ CREATE TABLE "ActionTypes" (
 
 CREATE TABLE "AuthProviders" (
 	"id" SERIAL NOT NULL UNIQUE,
-	"name" VARCHAR(50) NOT NULL,
+	"name" VARCHAR(50) NOT NULL UNIQUE,
 	PRIMARY KEY("id")
 );
 
-CREATE TABLE "Account" (
+CREATE TABLE "Accounts" (
 	"id" SERIAL NOT NULL UNIQUE,
 	"email" VARCHAR(255) NOT NULL UNIQUE,
 	"fullName" VARCHAR(255) NOT NULL,
@@ -170,7 +170,7 @@ ADD FOREIGN KEY("idNotification") REFERENCES "Notifications"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "UsersNotifications"
-ADD FOREIGN KEY("idClient") REFERENCES "Client"("idAccount")
+ADD FOREIGN KEY("idClient") REFERENCES "Clients"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "CardsUsers"
@@ -178,7 +178,7 @@ ADD FOREIGN KEY("idCardState") REFERENCES "CardStates"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "CardsUsers"
-ADD FOREIGN KEY("idClient") REFERENCES "Client"("idAccount")
+ADD FOREIGN KEY("idClient") REFERENCES "Clients"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "CardsUsers"
@@ -186,7 +186,7 @@ ADD FOREIGN KEY("idCard") REFERENCES "Cards"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "Preferences"
-ADD FOREIGN KEY("idClient") REFERENCES "Client"("idAccount")
+ADD FOREIGN KEY("idClient") REFERENCES "Clients"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "Preferences"
@@ -206,7 +206,7 @@ ADD FOREIGN KEY("idBusiness") REFERENCES "Business"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "Ratings"
-ADD FOREIGN KEY("idClient") REFERENCES "Client"("idAccount")
+ADD FOREIGN KEY("idClient") REFERENCES "Clients"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "Collaborators"
@@ -249,16 +249,16 @@ ALTER TABLE "CollaboratorsActivities"
 ADD FOREIGN KEY("idActionType") REFERENCES "ActionTypes"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE "Account"
+ALTER TABLE "Accounts"
 ADD FOREIGN KEY("idAuthProvider") REFERENCES "AuthProviders"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE "Client"
-ADD FOREIGN KEY("idAccount") REFERENCES "Account"("id")
+ALTER TABLE "Clients"
+ADD FOREIGN KEY("idAccount") REFERENCES "Accounts"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "Collaborators"
-ADD FOREIGN KEY("idAccount") REFERENCES "Account"("id")
+ADD FOREIGN KEY("idAccount") REFERENCES "Accounts"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "Collaborators"
@@ -266,5 +266,5 @@ ADD FOREIGN KEY("idRol") REFERENCES "Roles"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "CollaboratorsActivities"
-ADD FOREIGN KEY("idAccount") REFERENCES "Account"("id")
+ADD FOREIGN KEY("idAccount") REFERENCES "Accounts"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
