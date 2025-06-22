@@ -78,3 +78,14 @@ INSERT INTO Locations (idFather, idLocationType , name) VALUES
 (1, 1, 'Colombia'),
 (1, 2, 'Magdalena'),
 (2, 3, 'Santa Marta');
+
+
+
+-- ##
+-- ## ROLES PARA COLABORADORES (Roles)
+-- ## Define los distintos roles que un colaborador puede tener dentro de un negocio.
+-- ##
+INSERT INTO Roles (name) VALUES
+('Owner'),
+('Admin'),
+('Employee');
