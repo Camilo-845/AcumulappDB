@@ -6,7 +6,7 @@ CREATE TABLE Client (
 CREATE TABLE Cards (
 	id SERIAL NOT NULL UNIQUE,
 	idBusiness INTEGER NOT NULL,
-	expiration INTERVAL NOT NULL,
+	expiration BIGINT NOT NULL,
 	maxStamp INTEGER NOT NULL,
 	description VARCHAR(2000) NOT NULL,
 	PRIMARY KEY(id)
