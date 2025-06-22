@@ -1,13 +1,14 @@
 -- #####################################################################
--- ##                  DATOS INICIALES PARA LA APLICACIÓN             ##
+-- ##                         DATOS INICIALES PARA LA APLICACIÓN             ##
 -- #####################################################################
 
 -- ##
 -- ## PROVEEDORES DE AUTENTICACIÓN (AuthProviders)
 -- ## Define los métodos de inicio de sesión disponibles.
 -- ##
-INSERT INTO AuthProviders (name) VALUES
-('local'), -- Para registro con email y contraseña
+-- En ddl.sql (o 02-dml.sql)
+INSERT INTO "AuthProviders" (name) VALUES -- ¡Esto ya lo tenías bien!
+('local'),
 ('google'),
 ('facebook');
 
@@ -16,7 +17,7 @@ INSERT INTO AuthProviders (name) VALUES
 -- ## TIPOS DE PLANES PARA NEGOCIOS (Plans)
 -- ## Define los niveles de suscripción que un negocio puede tener.
 -- ##
-INSERT INTO Plans (name) VALUES
+INSERT INTO "Plans" (name) VALUES -- <--- CAMBIO AQUÍ: "Plans"
 ('Gratuito'),
 ('Premium');
 
@@ -25,19 +26,19 @@ INSERT INTO Plans (name) VALUES
 -- ## ESTADOS DE LAS TARJETAS (CardStates)
 -- ## Define los posibles estados de una tarjeta de fidelización de un usuario.
 -- ##
-INSERT INTO CardStates (name) VALUES
-('Activa'),    -- La tarjeta está en uso
-('Completada'),-- El usuario ha llenado todos los sellos
-('Canjeada'),  -- El usuario ya reclamó el premio
-('Inactiva'),  -- Pendiente por activación
-('Expirada');   -- La tarjeta venció
+INSERT INTO "CardStates" (name) VALUES -- <--- CAMBIO AQUÍ: "CardStates"
+('Activa'),
+('Completada'),
+('Canjeada'),
+('Inactiva'),
+('Expirada');
 
 
 -- ##
 -- ## TIPOS DE ACCIONES PARA COLABORADORES (ActionTypes)
 -- ## Registra las actividades que los colaboradores realizan en la plataforma.
 -- ##
-INSERT INTO ActionTypes (name) VALUES
+INSERT INTO "ActionTypes" (name) VALUES -- <--- CAMBIO AQUÍ: "ActionTypes"
 ('Agregó sello'),
 ('Canjeó tarjeta'),
 ('Editó información del negocio'),
@@ -48,7 +49,7 @@ INSERT INTO ActionTypes (name) VALUES
 -- ## CATEGORÍAS DE NEGOCIOS (Categories)
 -- ## Lista inicial de categorías para clasificar los negocios.
 -- ##
-INSERT INTO Categories (name) VALUES
+INSERT INTO "Categories" (name) VALUES -- <--- CAMBIO AQUÍ: "Categories"
 ('Restaurante'),
 ('Cafetería'),
 ('Bar'),
@@ -63,7 +64,7 @@ INSERT INTO Categories (name) VALUES
 -- ## TIPOS DE UBICACIÓN (LocationTypes)
 -- ## Define la jerarquía de las ubicaciones (país, ciudad, etc.).
 -- ##
-INSERT INTO LocationTypes (name) VALUES
+INSERT INTO "LocationTypes" (name) VALUES -- <--- CAMBIO AQUÍ: "LocationTypes"
 ('País'),
 ('Departamento'),
 ('Ciudad');
@@ -74,18 +75,17 @@ INSERT INTO LocationTypes (name) VALUES
 -- ## Datos iniciales para Colombia y algunas de sus principales ciudades.
 -- ## El idFather = 1 corresponde a 'Colombia'.
 -- ##
-INSERT INTO Locations (idFather, idLocationType , name) VALUES
+INSERT INTO "Locations" ("idFather", "idLocationType" , name) VALUES -- <--- CAMBIOS AQUÍ: "Locations", "idFather", "idLocationType"
 (1, 1, 'Colombia'),
 (1, 2, 'Magdalena'),
 (2, 3, 'Santa Marta');
-
 
 
 -- ##
 -- ## ROLES PARA COLABORADORES (Roles)
 -- ## Define los distintos roles que un colaborador puede tener dentro de un negocio.
 -- ##
-INSERT INTO Roles (name) VALUES
+INSERT INTO "Roles" (name) VALUES -- <--- CAMBIO AQUÍ: "Roles"
 ('Owner'),
 ('Admin'),
 ('Employee');

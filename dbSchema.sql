@@ -1,270 +1,270 @@
-CREATE TABLE Client (
-	idAccount INTEGER NOT NULL UNIQUE,
-	PRIMARY KEY(idAccount)
+CREATE TABLE "Client" (
+	"idAccount" INTEGER NOT NULL UNIQUE,
+	PRIMARY KEY("idAccount")
 );
 
-CREATE TABLE Cards (
-	id SERIAL NOT NULL UNIQUE,
-	idBusiness INTEGER NOT NULL,
-	expiration BIGINT NOT NULL,
-	maxStamp INTEGER NOT NULL,
-	description VARCHAR(2000) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "Cards" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"idBusiness" INTEGER NOT NULL,
+	"expiration" BIGINT NOT NULL,
+	"maxStamp" INTEGER NOT NULL,
+	"description" VARCHAR(2000) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Business (
-	id SERIAL NOT NULL UNIQUE,
-	name VARCHAR(100),
-	email VARCHAR(255),
-	idLocation INTEGER,
-	logoImage VARCHAR(500),
-	Address VARCHAR(250),
-	idPlan INTEGER NOT NULL DEFAULT 1,
-	fullInformation BOOLEAN NOT NULL DEFAULT FALSE,
-	PRIMARY KEY(id)
+CREATE TABLE "Business" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"name" VARCHAR(100),
+	"email" VARCHAR(255),
+	"idLocation" INTEGER,
+	"logoImage" VARCHAR(500),
+	"Address" VARCHAR(250),
+	"idPlan" INTEGER NOT NULL DEFAULT 1,
+	"fullInformation" BOOLEAN NOT NULL DEFAULT FALSE,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Locations (
-	id SERIAL NOT NULL UNIQUE,
-	idFather INTEGER NOT NULL,
-	idLocationType INTEGER NOT NULL,
-	name VARCHAR(255) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "Locations" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"idFather" INTEGER NOT NULL,
+	"idLocationType" INTEGER NOT NULL,
+	"name" VARCHAR(255) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Categories (
-	id SERIAL NOT NULL UNIQUE,
-	name VARCHAR(255) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "Categories" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"name" VARCHAR(255) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Links (
-	id SERIAL NOT NULL UNIQUE,
-	idBusiness INTEGER NOT NULL,
-	value VARCHAR(500) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "Links" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"idBusiness" INTEGER NOT NULL,
+	"value" VARCHAR(500) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Numbers (
-	id SERIAL NOT NULL UNIQUE,
-	idBusiness INTEGER NOT NULL,
-	value VARCHAR(20) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "Numbers" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"idBusiness" INTEGER NOT NULL,
+	"value" VARCHAR(20) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Ratings (
-	id SERIAL NOT NULL UNIQUE,
-	idClient INTEGER NOT NULL,
-	idBusiness INTEGER NOT NULL,
-	valoration SMALLINT NOT NULL DEFAULT 5 CHECK(valoration >= 1 AND valoration <= 5),
-	PRIMARY KEY(id)
+CREATE TABLE "Ratings" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"idClient" INTEGER NOT NULL,
+	"idBusiness" INTEGER NOT NULL,
+	"valoration" SMALLINT NOT NULL DEFAULT 5 CHECK(valoration >= 1 AND valoration <= 5),
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Plans (
-	id SERIAL NOT NULL UNIQUE,
-	name VARCHAR(255) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "Plans" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"name" VARCHAR(255) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE CardStates (
-	id SERIAL NOT NULL UNIQUE,
-	name VARCHAR(100) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "CardStates" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"name" VARCHAR(100) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Preferences (
-	idClient SERIAL NOT NULL,
-	idCategory INTEGER NOT NULL,
-	PRIMARY KEY(idClient, idCategory)
+CREATE TABLE "Preferences" (
+	"idClient" SERIAL NOT NULL,
+	"idCategory" INTEGER NOT NULL,
+	PRIMARY KEY("idClient", "idCategory")
 );
 
-CREATE TABLE Notifications (
-	id SERIAL NOT NULL UNIQUE,
-	content VARCHAR(500) NOT NULL,
-	link VARCHAR(500),
-	PRIMARY KEY(id)
+CREATE TABLE "Notifications" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"content" VARCHAR(500) NOT NULL,
+	"link" VARCHAR(500),
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE CardsUsers (
-	id SERIAL NOT NULL UNIQUE,
-	idClient INTEGER NOT NULL,
-	idCard INTEGER NOT NULL,
-	idCardState INTEGER NOT NULL,
-	expirationDate TIMESTAMP NOT NULL,
-	currentStamps INTEGER NOT NULL,
-	UniqueCode CHAR(8),
-	PRIMARY KEY(id)
+CREATE TABLE "CardsUsers" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"idClient" INTEGER NOT NULL,
+	"idCard" INTEGER NOT NULL,
+	"idCardState" INTEGER NOT NULL,
+	"expirationDate" TIMESTAMP NOT NULL,
+	"currentStamps" INTEGER NOT NULL,
+	"UniqueCode" CHAR(8),
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE UsersNotifications (
-	id SERIAL NOT NULL UNIQUE,
-	idNotification INTEGER NOT NULL,
-	idClient INTEGER NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "UsersNotifications" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"idNotification" INTEGER NOT NULL,
+	"idClient" INTEGER NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Collaborators (
-	idAccount INTEGER NOT NULL,
-	idBusiness INTEGER NOT NULL,
-	idRol INTEGER NOT NULL,
-	PRIMARY KEY(idAccount, idBusiness)
+CREATE TABLE "Collaborators" (
+	"idAccount" INTEGER NOT NULL,
+	"idBusiness" INTEGER NOT NULL,
+	"idRol" INTEGER NOT NULL,
+	PRIMARY KEY("idAccount", "idBusiness")
 );
 
-CREATE TABLE LocationTypes (
-	id SERIAL NOT NULL UNIQUE,
-	name VARCHAR(150) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "LocationTypes" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"name" VARCHAR(150) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE BusinessCategories (
-	idBusiness INTEGER NOT NULL,
-	idCategory INTEGER NOT NULL,
-	PRIMARY KEY(idBusiness, idCategory)
+CREATE TABLE "BusinessCategories" (
+	"idBusiness" INTEGER NOT NULL,
+	"idCategory" INTEGER NOT NULL,
+	PRIMARY KEY("idBusiness", "idCategory")
 );
 
-CREATE TABLE CollaboratorsActivities (
-	id SERIAL NOT NULL UNIQUE,
-	idAccount INTEGER NOT NULL,
-	idBusiness INTEGER NOT NULL,
-	idActionType INTEGER NOT NULL,
-	oldValue VARCHAR(255),
-	newValue VARCHAR(255),
-	PRIMARY KEY(id)
+CREATE TABLE "CollaboratorsActivities" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"idAccount" INTEGER NOT NULL,
+	"idBusiness" INTEGER NOT NULL,
+	"idActionType" INTEGER NOT NULL,
+	"oldValue" VARCHAR(255),
+	"newValue" VARCHAR(255),
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE ActionTypes (
-	id SERIAL NOT NULL UNIQUE,
-	name VARCHAR(255) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "ActionTypes" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"name" VARCHAR(255) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE AuthProviders (
-	id SERIAL NOT NULL UNIQUE,
-	name VARCHAR(50) NOT NULL,
-	PRIMARY KEY(id)
+CREATE TABLE "AuthProviders" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"name" VARCHAR(50) NOT NULL,
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Account (
-	id SERIAL NOT NULL UNIQUE,
-	email VARCHAR(255) NOT NULL,
-	fullName VARCHAR(255) NOT NULL,
-	password VARCHAR(255),
-	idAuthProvider INTEGER NOT NULL,
-	isActive BOOLEAN NOT NULL DEFAULT  TRUE,
-	providerUserId VARCHAR(255),
-	emailVerified BOOLEAN NOT NULL DEFAULT FALSE,
-	profileImageURL VARCHAR(500),
-	PRIMARY KEY(id)
+CREATE TABLE "Account" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"email" VARCHAR(255) NOT NULL UNIQUE,
+	"fullName" VARCHAR(255) NOT NULL,
+	"password" VARCHAR(255),
+	"idAuthProvider" INTEGER NOT NULL,
+	"isActive" BOOLEAN NOT NULL DEFAULT TRUE,
+	"providerUserId" VARCHAR(255),
+	"emailVerified" BOOLEAN NOT NULL DEFAULT FALSE,
+	"profileImageURL" VARCHAR(500),
+	PRIMARY KEY("id")
 );
 
-CREATE TABLE Roles (
-	id SERIAL NOT NULL UNIQUE,
-	name VARCHAR(100) NOT NULL UNIQUE,
-	PRIMARY KEY(id)
+CREATE TABLE "Roles" (
+	"id" SERIAL NOT NULL UNIQUE,
+	"name" VARCHAR(100) NOT NULL UNIQUE,
+	PRIMARY KEY("id")
 );
-COMMENT ON TABLE Roles IS 'Rol de Owner, Admin, Worker';
+COMMENT ON TABLE "Roles" IS 'Rol de Owner, Admin, Worker';
 
 
-ALTER TABLE UsersNotifications
-ADD FOREIGN KEY(idNotification) REFERENCES Notifications(id)
+ALTER TABLE "UsersNotifications"
+ADD FOREIGN KEY("idNotification") REFERENCES "Notifications"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE UsersNotifications
-ADD FOREIGN KEY(idClient) REFERENCES Client(idAccount)
+ALTER TABLE "UsersNotifications"
+ADD FOREIGN KEY("idClient") REFERENCES "Client"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE CardsUsers
-ADD FOREIGN KEY(idCardState) REFERENCES CardStates(id)
+ALTER TABLE "CardsUsers"
+ADD FOREIGN KEY("idCardState") REFERENCES "CardStates"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE CardsUsers
-ADD FOREIGN KEY(idClient) REFERENCES Client(idAccount)
+ALTER TABLE "CardsUsers"
+ADD FOREIGN KEY("idClient") REFERENCES "Client"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE CardsUsers
-ADD FOREIGN KEY(idCard) REFERENCES Cards(id)
+ALTER TABLE "CardsUsers"
+ADD FOREIGN KEY("idCard") REFERENCES "Cards"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Preferences
-ADD FOREIGN KEY(idClient) REFERENCES Client(idAccount)
+ALTER TABLE "Preferences"
+ADD FOREIGN KEY("idClient") REFERENCES "Client"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Preferences
-ADD FOREIGN KEY(idCategory) REFERENCES Categories(id)
+ALTER TABLE "Preferences"
+ADD FOREIGN KEY("idCategory") REFERENCES "Categories"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE BusinessCategories
-ADD FOREIGN KEY(idCategory) REFERENCES Categories(id)
+ALTER TABLE "BusinessCategories"
+ADD FOREIGN KEY("idCategory") REFERENCES "Categories"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE BusinessCategories
-ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ALTER TABLE "BusinessCategories"
+ADD FOREIGN KEY("idBusiness") REFERENCES "Business"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Ratings
-ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ALTER TABLE "Ratings"
+ADD FOREIGN KEY("idBusiness") REFERENCES "Business"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Ratings
-ADD FOREIGN KEY(idClient) REFERENCES Client(idAccount)
+ALTER TABLE "Ratings"
+ADD FOREIGN KEY("idClient") REFERENCES "Client"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Collaborators
-ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ALTER TABLE "Collaborators"
+ADD FOREIGN KEY("idBusiness") REFERENCES "Business"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Numbers
-ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ALTER TABLE "Numbers"
+ADD FOREIGN KEY("idBusiness") REFERENCES "Business"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Business
-ADD FOREIGN KEY(idPlan) REFERENCES Plans(id)
+ALTER TABLE "Business"
+ADD FOREIGN KEY("idPlan") REFERENCES "Plans"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Locations
-ADD FOREIGN KEY(idLocationType) REFERENCES LocationTypes(id)
+ALTER TABLE "Locations"
+ADD FOREIGN KEY("idLocationType") REFERENCES "LocationTypes"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Locations
-ADD FOREIGN KEY(idFather) REFERENCES Locations(id)
+ALTER TABLE "Locations"
+ADD FOREIGN KEY("idFather") REFERENCES "Locations"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Business
-ADD FOREIGN KEY(idLocation) REFERENCES Locations(id)
+ALTER TABLE "Business"
+ADD FOREIGN KEY("idLocation") REFERENCES "Locations"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Links
-ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ALTER TABLE "Links"
+ADD FOREIGN KEY("idBusiness") REFERENCES "Business"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Cards
-ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ALTER TABLE "Cards"
+ADD FOREIGN KEY("idBusiness") REFERENCES "Business"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE CollaboratorsActivities
-ADD FOREIGN KEY(idBusiness) REFERENCES Business(id)
+ALTER TABLE "CollaboratorsActivities"
+ADD FOREIGN KEY("idBusiness") REFERENCES "Business"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE CollaboratorsActivities
-ADD FOREIGN KEY(idActionType) REFERENCES ActionTypes(id)
+ALTER TABLE "CollaboratorsActivities"
+ADD FOREIGN KEY("idActionType") REFERENCES "ActionTypes"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Account
-ADD FOREIGN KEY(idAuthProvider) REFERENCES AuthProviders(id)
+ALTER TABLE "Account"
+ADD FOREIGN KEY("idAuthProvider") REFERENCES "AuthProviders"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Client
-ADD FOREIGN KEY(idAccount) REFERENCES Account(id)
+ALTER TABLE "Client"
+ADD FOREIGN KEY("idAccount") REFERENCES "Account"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Collaborators
-ADD FOREIGN KEY(idAccount) REFERENCES Account(id)
+ALTER TABLE "Collaborators"
+ADD FOREIGN KEY("idAccount") REFERENCES "Account"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE Collaborators
-ADD FOREIGN KEY(idRol) REFERENCES Roles(id)
+ALTER TABLE "Collaborators"
+ADD FOREIGN KEY("idRol") REFERENCES "Roles"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE CollaboratorsActivities
-ADD FOREIGN KEY(idAccount) REFERENCES Account(id)
+ALTER TABLE "CollaboratorsActivities"
+ADD FOREIGN KEY("idAccount") REFERENCES "Account"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
