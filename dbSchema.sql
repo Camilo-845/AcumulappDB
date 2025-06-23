@@ -34,7 +34,7 @@ CREATE TABLE "Locations" (
 
 CREATE TABLE "Categories" (
 	"id" SERIAL NOT NULL UNIQUE,
-	"name" VARCHAR(255) NOT NULL,
+	"name" VARCHAR(255) NOT NULL UNIQUE,
 	PRIMARY KEY("id")
 );
 
@@ -62,13 +62,13 @@ CREATE TABLE "Ratings" (
 
 CREATE TABLE "Plans" (
 	"id" SERIAL NOT NULL UNIQUE,
-	"name" VARCHAR(255) NOT NULL,
+	"name" VARCHAR(255) NOT NULL UNIQUE,
 	PRIMARY KEY("id")
 );
 
 CREATE TABLE "CardStates" (
 	"id" SERIAL NOT NULL UNIQUE,
-	"name" VARCHAR(100) NOT NULL,
+	"name" VARCHAR(100) NOT NULL UNIQUE,
 	PRIMARY KEY("id")
 );
 
@@ -112,7 +112,7 @@ CREATE TABLE "Collaborators" (
 
 CREATE TABLE "LocationTypes" (
 	"id" SERIAL NOT NULL UNIQUE,
-	"name" VARCHAR(150) NOT NULL,
+	"name" VARCHAR(150) NOT NULL UNIQUE,
 	PRIMARY KEY("id")
 );
 

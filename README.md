@@ -2,7 +2,7 @@
 
 Este proyecto utiliza Docker Compose para levantar y gestionar la base de datos. Sigue las instrucciones a continuación para ponerla en marcha.
 
-[Esquema](https://www.drawdb.app/editor?shareId=7bb160a26ba3451c3e91f481b80938af)
+[Esquema](https://www.drawdb.app/editor?shareId=3b9e2f7636e01b557a18dfbe813adc4c)
 
 ---
 
