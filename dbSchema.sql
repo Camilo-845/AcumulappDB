@@ -85,7 +85,7 @@ CREATE TABLE "Notifications" (
 	PRIMARY KEY("id")
 );
 
-CREATE TABLE "CardsUsers" (
+CREATE TABLE "CardsClients" (
 	"id" SERIAL NOT NULL UNIQUE,
 	"idClient" INTEGER NOT NULL,
 	"idCard" INTEGER NOT NULL,
@@ -96,10 +96,10 @@ CREATE TABLE "CardsUsers" (
 	PRIMARY KEY("id")
 );
 
-CREATE TABLE "UsersNotifications" (
+CREATE TABLE "AccountsNotifications" (
 	"id" SERIAL NOT NULL UNIQUE,
 	"idNotification" INTEGER NOT NULL,
-	"idClient" INTEGER NOT NULL,
+	"idAccount" INTEGER NOT NULL,
 	PRIMARY KEY("id")
 );
 
@@ -165,23 +165,19 @@ CREATE TABLE "Roles" (
 COMMENT ON TABLE "Roles" IS 'Rol de Owner, Admin, Worker';
 
 
-ALTER TABLE "UsersNotifications"
+ALTER TABLE "AccountsNotifications"
 ADD FOREIGN KEY("idNotification") REFERENCES "Notifications"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE "UsersNotifications"
-ADD FOREIGN KEY("idClient") REFERENCES "Clients"("idAccount")
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-ALTER TABLE "CardsUsers"
+ALTER TABLE "CardsClients"
 ADD FOREIGN KEY("idCardState") REFERENCES "CardStates"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE "CardsUsers"
+ALTER TABLE "CardsClients"
 ADD FOREIGN KEY("idClient") REFERENCES "Clients"("idAccount")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE "CardsUsers"
+ALTER TABLE "CardsClients"
 ADD FOREIGN KEY("idCard") REFERENCES "Cards"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
@@ -266,5 +262,9 @@ ADD FOREIGN KEY("idRol") REFERENCES "Roles"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE "CollaboratorsActivities"
+ADD FOREIGN KEY("idAccount") REFERENCES "Accounts"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE "AccountsNotifications"
 ADD FOREIGN KEY("idAccount") REFERENCES "Accounts"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
