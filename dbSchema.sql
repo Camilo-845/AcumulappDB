@@ -5,10 +5,13 @@ CREATE TABLE "Clients" (
 
 CREATE TABLE "Cards" (
 	"id" SERIAL NOT NULL UNIQUE,
+  "name" VARCHAR(100) NOT NULL,
 	"idBusiness" INTEGER NOT NULL,
 	"expiration" BIGINT NOT NULL,
 	"maxStamp" INTEGER NOT NULL,
 	"description" VARCHAR(2000) NOT NULL,
+  "restrictions"  VARCHAR(500) NOT NULL,
+  "reward" VARCHAR(500) NOT NULL,
 	PRIMARY KEY("id")
 );
 
@@ -92,7 +95,7 @@ CREATE TABLE "CardsClients" (
 	"idCardState" INTEGER NOT NULL,
 	"expirationDate" TIMESTAMP NOT NULL,
 	"currentStamps" INTEGER NOT NULL,
-	"UniqueCode" CHAR(8),
+	"UniqueCode" CHAR(8) UNIQUE,
 	PRIMARY KEY("id")
 );
 
