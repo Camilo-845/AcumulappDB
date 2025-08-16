@@ -157,6 +157,7 @@ CREATE TABLE "Accounts" (
 	"providerUserId" VARCHAR(255),
 	"emailVerified" BOOLEAN NOT NULL DEFAULT FALSE,
 	"profileImageURL" VARCHAR(500),
+  "refreshToken" VARCHAR(500),
 	PRIMARY KEY("id")
 );
 
