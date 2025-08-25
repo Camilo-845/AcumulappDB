@@ -59,28 +59,6 @@ INSERT INTO "Categories" (name) VALUES -- <--- CAMBIO AQUÍ: "Categories"
 ('Servicios Profesionales'),
 ('Mascotas');
 
-
--- ##
--- ## TIPOS DE UBICACIÓN (LocationTypes)
--- ## Define la jerarquía de las ubicaciones (país, ciudad, etc.).
--- ##
-INSERT INTO "LocationTypes" (name) VALUES -- <--- CAMBIO AQUÍ: "LocationTypes"
-('País'),
-('Departamento'),
-('Ciudad');
-
-
--- ##
--- ## UBICACIONES (Locations)
--- ## Datos iniciales para Colombia y algunas de sus principales ciudades.
--- ## El idFather = 1 corresponde a 'Colombia'.
--- ##
-INSERT INTO "Locations" ("idFather", "idLocationType" , name) VALUES -- <--- CAMBIOS AQUÍ: "Locations", "idFather", "idLocationType"
-(1, 1, 'Colombia'),
-(1, 2, 'Magdalena'),
-(2, 3, 'Santa Marta');
-
-
 -- ##
 -- ## ROLES PARA COLABORADORES (Roles)
 -- ## Define los distintos roles que un colaborador puede tener dentro de un negocio.
@@ -89,3 +67,9 @@ INSERT INTO "Roles" (name) VALUES -- <--- CAMBIO AQUÍ: "Roles"
 ('Owner'),
 ('Admin'),
 ('Employee');
+
+INSERT INTO "Links" (name) VALUES
+('Website'),
+('Facebook'),
+('Instagram'),
+('Whatsapp');

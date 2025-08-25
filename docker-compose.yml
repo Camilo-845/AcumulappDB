@@ -10,7 +10,9 @@ services:
       - "${DB_PORT}:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-      - ./dbSchema.sql:/docker-entrypoint-initdb.d/01-init.sql
-      - ./ddl.sql:/docker-entrypoint-initdb.d/02-dml.sql
+      - ./dbSchema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./ddl.sql:/docker-entrypoint-initdb.d/02-ddl.sql
+      - ./functions.sql:/docker-entrypoint-initdb.d/03-functions.sql
+      - ./triggers.sql:/docker-entrypoint-initdb.d/04-triggers.sql
 volumes:
   db_data:
